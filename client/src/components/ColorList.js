@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosWithAuth from '../utils/axiosWithAuth';
+
 
 const initialColor = {
   color: "",
@@ -11,6 +12,8 @@ const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
+  console.log(colorToEdit.id);
+
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
@@ -21,10 +24,27 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth().put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        console.log(res);
+        setEditing(false);
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
+  
   };
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    axiosWithAuth().delete(`http://localhost:5000/api/colors/${colorToEdit.id}`)
+      .then(res => {
+        console.log(res);
+        
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
   };
 
   return (
@@ -32,11 +52,9 @@ const ColorList = ({ colors, updateColors }) => {
       <p>colors</p>
       <ul>
         {colors.map(color => (
+          <div>
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
-              <span className="delete" onClick={() => deleteColor(color)}>
-                x
-              </span>{" "}
               {color.color}
             </span>
             <div
@@ -44,6 +62,10 @@ const ColorList = ({ colors, updateColors }) => {
               style={{ backgroundColor: color.code.hex }}
             />
           </li>
+          <span key={color.id} className="delete" onClick={() => deleteColor(color)}>
+          DELETE ^
+          </span>
+          </div>
         ))}
       </ul>
       {editing && (

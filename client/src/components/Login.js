@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios';
 
 
-const Login = () => {
+const Login = (props) => {
 
   const[credentials, setCredentials] = useState({
                                           username: '',
@@ -30,7 +30,7 @@ const Login = () => {
         // console.log('Login Success Response:', res)
         // console.log('Token:', res.data.payload)
         localStorage.setItem('token', res.data.payload);
-        // props.history.push('/bubblepage')
+        props.history.push('/bubblepage')
       })
       .catch(err => {
         console.log('Login Error:', err.response)

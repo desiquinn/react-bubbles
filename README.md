@@ -38,7 +38,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Describe how web servers work.
 
-* The web server stores the code, it is then connected to the internet so people can see it on the web.  When a user requests a website or app the software (also called a web server) retrieves the code and serves it to the user that requested it.
+* The web server stores the code, it is then connected to the internet so people can see it on the web.  When a user requests a website or app the software (also called a web server) retrieves the code and serves it to the user that requested it
 
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
 

@@ -26,9 +26,9 @@ const Login = () => {
     axios
       .post('http://localhost:5000/api/login', credentials)
       .then(res => {
-        console.log('Credentials:', credentials)
-        console.log('Login Success Response:', res)
-        console.log('Token:', res.data.payload)
+        // console.log('Credentials:', credentials)
+        // console.log('Login Success Response:', res)
+        // console.log('Token:', res.data.payload)
         localStorage.setItem('token', res.data.payload);
         // props.history.push('/bubblepage')
       })

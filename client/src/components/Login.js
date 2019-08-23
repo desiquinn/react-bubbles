@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import axios from 'axios';
+
 
 const Login = () => {
 
@@ -16,18 +18,29 @@ const Login = () => {
     setCredentials({
       ...credentials, 
       [event.target.name]: event.target.value
-    })
-  }
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(credentials)
-  }
+    axios
+      .post('http://localhost:5000/api/login', credentials)
+      .then(res => {
+        console.log('Credentials:', credentials)
+        console.log('Login Success Response:', res)
+        console.log('Token:', res.data.payload)
+        localStorage.setItem('token', res.data.payload);
+        // props.history.push('/bubblepage')
+      })
+      .catch(err => {
+        console.log('Login Error:', err.response)
+        console.log('Login Error Message:', err.response.data)
+      })
+  };
 
   return (
     <>
       <h1>Welcome to the Bubble App!</h1>
-      {/* <p>Login</p> */}
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         <label> Username: </label>
